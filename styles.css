@@ -11,3 +11,5 @@
 .little-spark{width:88px;height:82px;object-fit:contain;margin-top:26px;opacity:.95}
 @media(prefers-reduced-motion:reduce){.little-spark{display:none}}
 @media(max-width:760px){.little-spark{width:68px;height:63px;margin-top:20px}.hero h1{white-space:normal}.signature{font-size:clamp(4.4rem,22vw,5.8rem)}.role-line{white-space:normal;min-height:1.3em}}
+@media(max-width:760px){.hero-visual .portrait{height:390px;bottom:0}}
+@media(max-width:360px){.hero-visual .portrait{height:340px;bottom:0}}
