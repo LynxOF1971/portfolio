@@ -16,16 +16,16 @@ function typeRole(){
   const text=roles[role];
   letter+=deleting?-1:1;
   roleText.textContent=text.slice(0,letter);
-  let delay=deleting?35:75;
-  if(!deleting&&letter===text.length){deleting=true;delay=1800;}
-  else if(deleting&&letter===0){deleting=false;role=(role+1)%roles.length;delay=350;}
+  let delay=deleting?25:50;
+  if(!deleting&&letter===text.length){deleting=true;delay=1200;}
+  else if(deleting&&letter===0){deleting=false;role=(role+1)%roles.length;delay=250;}
   typingTimer=setTimeout(typeRole,delay);
 }
 function resetTyping(){
   clearTimeout(typingTimer);
   role=0;letter=0;deleting=false;
   roleText.textContent=reducedMotion.matches?roles[0]:'';
-  if(!reducedMotion.matches)typingTimer=setTimeout(typeRole,350);
+  if(!reducedMotion.matches)typingTimer=setTimeout(typeRole,250);
 }
 reducedMotion.addEventListener('change',resetTyping);
 document.addEventListener('visibilitychange',()=>{
