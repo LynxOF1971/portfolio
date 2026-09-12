@@ -16,3 +16,11 @@
 
 /* Keep complete professional titles readable at every screen size. */
 .role-line{white-space:normal;font-size:clamp(1.65rem,2.7vw,2.5rem);min-height:3.6em;max-width:100%;overflow-wrap:normal}.role-line #changing-role{display:inline}.hero-content{min-width:0}@media(max-width:760px){.role-line{font-size:clamp(1.5rem,6vw,2rem);min-height:3.6em}}
+
+/* Keep navigation available while scrolling, with room for anchor targets. */
+:root{--header-height:110px}
+html{scroll-padding-top:calc(var(--header-height) + 16px)}
+body{padding-top:var(--header-height)}
+.site-header{position:fixed;top:0;left:0;right:0;z-index:50;height:var(--header-height);background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax -12px)}
+.brand img{object-fit:contain}
+@media(max-width:760px){:root{--header-height:94px}.site-header{position:fixed;clip-path:none;box-shadow:none}.site-header:before{content:'';position:absolute;inset:0 -20px;background:var(--bg);z-index:-1}.main-nav{top:82px}}
