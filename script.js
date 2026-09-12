@@ -7,8 +7,32 @@ menu.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){closeMenu();menuButton.focus();}});
 document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu();});
 document.querySelector('#year').textContent=new Date().getFullYear();
-if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){const roles=['an electronics system designer & developer','a front-end developer','a mechanical 3D designer','a product developer','a digital marketing analyst'];let role=0;setInterval(()=>{if(!document.hidden){role=(role+1)%roles.length;document.querySelector('#changing-role').textContent=roles[role];}},3500);}
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+const roles=['an electronics system designer & developer','a front-end developer','a mechanical 3D designer','a product developer','a digital marketing analyst'];
+const roleText=document.querySelector('#changing-role');
+let role=0,letter=0,deleting=false,typingTimer;
+function typeRole(){
+  if(document.hidden)return;
+  const text=roles[role];
+  letter+=deleting?-1:1;
+  roleText.textContent=text.slice(0,letter);
+  let delay=deleting?35:75;
+  if(!deleting&&letter===text.length){deleting=true;delay=1800;}
+  else if(deleting&&letter===0){deleting=false;role=(role+1)%roles.length;delay=350;}
+  typingTimer=setTimeout(typeRole,delay);
+}
+function resetTyping(){
+  clearTimeout(typingTimer);
+  role=0;letter=0;deleting=false;
+  roleText.textContent=reducedMotion.matches?roles[0]:'';
+  if(!reducedMotion.matches)typingTimer=setTimeout(typeRole,350);
+}
+reducedMotion.addEventListener('change',resetTyping);
+document.addEventListener('visibilitychange',()=>{
+  clearTimeout(typingTimer);
+  if(!document.hidden&&!reducedMotion.matches)typingTimer=setTimeout(typeRole,150);
+});
+resetTyping();
 function updateGallery(track){const prev=document.querySelector('.gallery-prev[data-gallery="'+track.id+'"]');const next=document.querySelector('.gallery-next[data-gallery="'+track.id+'"]');prev.disabled=track.scrollLeft<=2;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;}
 document.querySelectorAll('.gallery-track').forEach(track=>{track.addEventListener('scroll',()=>updateGallery(track),{passive:true});new ResizeObserver(()=>updateGallery(track)).observe(track);updateGallery(track);});
 document.querySelectorAll('[data-gallery]').forEach(button=>button.addEventListener('click',()=>{const track=document.getElementById(button.dataset.gallery);const distance=track.firstElementChild.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap);track.scrollBy({left:distance*(button.classList.contains('gallery-prev')?-1:1),behavior:reducedMotion.matches?'instant':'smooth'});}));
