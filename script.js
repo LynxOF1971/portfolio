@@ -8,7 +8,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.cont
 document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu();});
 document.querySelector('#year').textContent=new Date().getFullYear();
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-const roles=['an electronics system designer & developer','a front-end developer','a mechanical 3D designer','a product developer','a digital marketing analyst'];
+const roles=['Electronics system designer & developer','Front-end developer','Mechanical 3D designer','Product developer','Digital marketing analyst'];
 const roleText=document.querySelector('#changing-role');
 let role=0,letter=0,deleting=false,typingTimer;
 function typeRole(){
