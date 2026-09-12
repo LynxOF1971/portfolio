@@ -7,7 +7,7 @@ menu.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){closeMenu();menuButton.focus();}});
 document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu();});
 document.querySelector('#year').textContent=new Date().getFullYear();
-if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){const roles=['3D designer','developer','content creator','electronics maker'];let role=0;setInterval(()=>{if(!document.hidden){role=(role+1)%roles.length;document.querySelector('#changing-role').textContent=roles[role];}},3500);}
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){const roles=['an electronics system designer & developer','a front-end developer','a mechanical 3D designer','a product developer','a digital marketing analyst'];let role=0;setInterval(()=>{if(!document.hidden){role=(role+1)%roles.length;document.querySelector('#changing-role').textContent=roles[role];}},3500);}
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 function updateGallery(track){const prev=document.querySelector('.gallery-prev[data-gallery="'+track.id+'"]');const next=document.querySelector('.gallery-next[data-gallery="'+track.id+'"]');prev.disabled=track.scrollLeft<=2;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;}
 document.querySelectorAll('.gallery-track').forEach(track=>{track.addEventListener('scroll',()=>updateGallery(track),{passive:true});new ResizeObserver(()=>updateGallery(track)).observe(track);updateGallery(track);});
