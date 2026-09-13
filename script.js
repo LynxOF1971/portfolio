@@ -8,7 +8,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.cont
 document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu();});
 document.querySelector('#year').textContent=new Date().getFullYear();
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-const roles=['an electronic system designer','R&D in mechatronics','a front-end developer','a product designer'];
+const roles=window.portfolioRoles?.length?window.portfolioRoles:['an electronic system designer','R&D in mechatronics','a front-end developer','a product designer'];
 const roleText=document.querySelector('#changing-role');
 let role=0,letter=0,deleting=false,typingTimer;
 function typeRole(){
@@ -35,13 +35,13 @@ document.addEventListener('visibilitychange',()=>{
 resetTyping();
 function updateGallery(track){const prev=document.querySelector('.gallery-prev[data-gallery="'+track.id+'"]');const next=document.querySelector('.gallery-next[data-gallery="'+track.id+'"]');prev.disabled=track.scrollLeft<=2;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;}
 document.querySelectorAll('.gallery-track').forEach(track=>{track.addEventListener('scroll',()=>updateGallery(track),{passive:true});new ResizeObserver(()=>updateGallery(track)).observe(track);updateGallery(track);});
-document.querySelectorAll('[data-gallery]').forEach(button=>button.addEventListener('click',()=>{const track=document.getElementById(button.dataset.gallery);const distance=track.firstElementChild.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap);track.scrollBy({left:distance*(button.classList.contains('gallery-prev')?-1:1),behavior:reducedMotion.matches?'instant':'smooth'});}));
+document.querySelectorAll('[data-gallery]').forEach(button=>button.addEventListener('click',()=>{const track=document.getElementById(button.dataset.gallery);if(!track.firstElementChild)return;const distance=track.firstElementChild.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap);track.scrollBy({left:distance*(button.classList.contains('gallery-prev')?-1:1),behavior:reducedMotion.matches?'instant':'smooth'});}));
 const dialog=document.getElementById('project-dialog');let lastProjectButton;
 document.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>{lastProjectButton=button;document.getElementById('dialog-content').replaceChildren(document.getElementById(button.dataset.project).content.cloneNode(true));dialog.querySelector(".dialog-title").id="dialog-title";dialog.showModal();dialog.scrollTop=0;document.body.classList.add('dialog-open');}));
 dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
 dialog.addEventListener('close',()=>{document.body.classList.remove('dialog-open');lastProjectButton?.focus({preventScroll:true});});
-document.querySelector('.copy-email').addEventListener('click',async()=>{const status=document.querySelector('#copy-status');try{await navigator.clipboard.writeText('shahriarfardin123@gmail.com');status.textContent='Email address copied.';}catch{status.textContent='Select and copy the email above, or tap it to open your email app.';}});
+document.querySelector('.copy-email').addEventListener('click',async()=>{const status=document.querySelector('#copy-status');try{await navigator.clipboard.writeText(document.querySelector('.email-link').getAttribute('href').replace(/^mailto:/,''));status.textContent='Email address copied.';}catch{status.textContent='Select and copy the email above, or tap it to open your email app.';}});
 const navLinks=[...document.querySelectorAll('.main-nav a')];
 const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){navLinks.forEach(link=>{const active=link.hash==='#'+entry.target.id;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}}},{rootMargin:'-15% 0px -65% 0px',threshold:0});
 navLinks.forEach(link=>{const target=document.querySelector(link.hash);if(target)observer.observe(target);});

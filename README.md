@@ -39,3 +39,11 @@ Email links open the visitor’s email app. There is no server-side contact form
 https://www.figma.com/design/tRS6LZrC03pJCz2kjqs32X/Shahriar-Fardin-Portfolio?node-id=0-1
 
 Portfolio artwork, photographs, and branding belong to their respective owners. No license to reuse them is implied. Font license texts are in `assets/`.
+
+## Private live editor
+
+Open `admin.html`. Only the confirmed account `shahriarfardin123@gmail.com` can edit. First use: choose a password of at least 12 characters, select **Set up my editor account**, confirm the email, then sign in. Use section buttons to change content. Collections offer add, duplicate, delete, and move controls. Images and PDFs can be uploaded (10 MB maximum). Preview checks the layout; Save draft keeps content unpublished; Publish changes updates the public website without a GitHub deployment.
+
+Content lives in Supabase `portfolio_content`; only the `live` record is publicly readable. Database and storage policies enforce ownership against the confirmed email in `auth.users`, not editable user metadata. The published browser key is intentionally public and has no administrative privileges. Auth tokens stay in session storage. Uploaded media uses unguessable URLs in the public `portfolio-media` bucket; do not upload confidential files. The original HTML remains a fallback if the content service is unavailable. Updated content may need a page refresh for visitors already on the site.
+
+Self-hosted dependencies: DOMPurify 3.4.15 and Supabase JS 2.116.0. Do not edit the static HTML for content changes after using the editor: the published database record takes precedence. No owner password or service-role key is included in the repository.
